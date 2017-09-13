@@ -14,12 +14,17 @@ class Book extends Component {
   render() {
     const { book, shelf, shelves } = this.props;
 
+    // prevent Mixed Content warnings and imageLinks not found
+    const thumbnail = book.imageLinks ?
+      book.imageLinks.thumbnail.replace("http://", "https://") :
+      'https://books.google.com/googlebooks/images/no_cover_thumb.gif';
+
     return (
       <li key={book.id}>
         <div className="book">
           <div className="book-top">
             <div className="book-cover"
-                 style={{width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
+                 style={{width: 128, height: 193, backgroundImage: `url(${thumbnail})`}}></div>
             <div className="book-shelf-changer">
               <select defaultValue={shelf ? shelf : 'none'} onChange={this.onChange}>
                 <option value="none" disabled>Move to...</option>
